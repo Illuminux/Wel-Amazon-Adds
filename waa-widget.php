@@ -1,8 +1,70 @@
 <?php
+/*
+ * Wel!AmazonAdds v1.3
+ * Copyright 2012  Knut Welzel  (email : knut@welzels.de)
+ *
+ * waa-widget.php
+ *
+ * License:       GNU General Public License, v3
+ * License URI:   http://www.gnu.org/licenses/quick-guide-gplv3
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ * 
+ * For details, see htp://www.welzels.de/welzoom2/
+ *
+ */
+
+
 class WAA_widget extends WP_Widget {
 	
 	// Setup Widget
 	function WAA_widget(){
+		
+		// Load JavaScript for option page
+		
+			wp_register_script(
+				'waa-admin',
+				WAA_path('url') . "/js/waa-admin.js",
+				array(
+					'jquery', 
+					'jquery-ui-core',
+					'jquery-ui-sortable',
+					'jquery-ui-accordion',
+					'farbtastic'),
+				'1.3'
+			);
+			
+			
+		// Wel!Amazon Affiliate StyleSheet für Admin
+			
+			wp_register_style(
+				'waa-admin',
+				WAA_path('url') . "/css/waa-admin.css",
+				array(
+					'farbtastic',
+					'jquery-ui-css'),
+				'1.3',
+				'screen'
+			);
+
+			
+			if(is_admin()){
+				wp_enqueue_script('waa-admin');			
+				wp_enqueue_style('waa-admin');
+			}
+			
 		
 		// Widget Einstellungen 
 			$widget_ops = array(
@@ -185,34 +247,26 @@ class WAA_widget extends WP_Widget {
 	
 	# Widget Optionen erzeugen 
 	function form($instance) {
-		
-			wp_enqueue_script(
-				'waa-javascript',
-				WAA_path('url') . "/js/waa-javascript.js",
-				array('jquery'),
-				'1.0'
-			);
-
+	
 		// Laden der Benutzerangaben
+
 			$plugin_option = WAA_instance();
 			extract($plugin_option);
 
+
 		// Testen ob notwendige Benutzerparameter eingestell sind
+
 			$output = null;
 
 			if(strlen($partnerID)<1)
 				$output .= '<li>'.__('Amazon Partner ID is not set!','WAA').'</li>';
 
-			if(strlen($accesKeyID)<1)
-				$output .= '<li>'.__('Amazon Acces Key is not set!','WAA').'</li>';
-
 			if(strlen($location['string'])<1)
 				$output .= '<li>'.__('Amazon Location is not set!','WAA').'</li>';
 
-			if(strlen($secretAccesKey)<1)
-				$output .= '<li>'.__('Amazon Secret Acces Key is not set!','WAA').'</li>';
 
 		// Ausgabe
+		
 			if(is_null($output)){
 
 				if(is_null($instance['title']))
@@ -241,6 +295,7 @@ class WAA_widget extends WP_Widget {
 				$instance = wp_parse_args((array)$instance, $defaults);
 
 ?>
+
 <p><strong>Widget WAA <? echo $this->number ?></strong></p>
 <div id="<? _e($this->get_field_id('options'));?>">
 	<h3><a href="#"><? _e('Enhanced Links Layout','WAA'); ?></a></h3>
@@ -314,7 +369,9 @@ class WAA_widget extends WP_Widget {
 					</td>
 					<td width="50%">
 						<div id="<? echo $this->get_field_id('preview');?>" class="WAA_preView alignright"></div>
+<!--						
 						<div style="clear:both;"><a href="<? $flattr = WAA_path('flattr'); echo $flattr['href']; ?>"><img src="<? $flattr = WAA_path('flattr'); echo $flattr['src']; ?>" width="50" height="60" alt="Flattr this" class="alignright" style="margin-top:30px;" /></a></div>
+-->
 					</td>
 				</tr>
 			</tbody>
@@ -385,7 +442,6 @@ class WAA_widget extends WP_Widget {
 								<option  <? echo ($instance['imageDefaultsSize']=='thumbnail'?'selected ':''); ?> value="thumbnail"><? _e('Thumbnail image','WAA'); ?></option>
 								<option  <? echo ($instance['imageDefaultsSize']=='tiny'?'selected ':''); ?> value="tiny"><? _e('Tiny image','WAA'); ?></option>
 								<option  <? echo ($instance['imageDefaultsSize']=='medium'?'selected ':''); ?> value="medium"><? _e('Medium image','WAA'); ?></option>
-								<option  <? echo ($instance['imageDefaultsSize']=='large'?'selected ':''); ?> value="large"><? _e('Large image','WAA'); ?></option>
 							</select>
 						</p>
 						<p>

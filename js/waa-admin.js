@@ -1,21 +1,30 @@
 /*
-	Wel!Amazon Adds for Wordpress v1.2
-	Copyright 2010  Knut Welzel www.welzels.de (email : admin@welzels.de)
-	
-	This program is free software; you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation; either version 2 of the License, or
-	(at your option) any later version.
-	
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
+ * Wel!AmazonAdds v1.3
+ * Copyright 2012  Knut Welzel  (email : knut@welzels.de)
+ *
+ * waa-admin.js
+ *
+ * License:       GNU General Public License, v3
+ * License URI:   http://www.gnu.org/licenses/quick-guide-gplv3
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
 
-	You should have received a copy of the GNU General Public License
-	along with this program; if not, write to the Free Software
-	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-*/
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ * 
+ * For details, see htp://www.welzels.de/welzoom2/
+ *
+ */
+
 (function(WAA){
 	
 	WAA.fn.pad=function(options){
@@ -144,7 +153,7 @@
 			dataType:'html',
 			async:false
 		}).responseText;
-		
+				
 		if(settings.insertion=='html') WAA(this).html(response);
 		else if(settings.insertion=='append') WAA(this).append(response);
 		else if(settings.insertion=='prepend') WAA(this).prepend(response);
@@ -180,7 +189,10 @@
 		var color;
 		var colorPicker={};
 		
-		WAA('#'+opt+'options').accordion({autoHeight:false});
+		WAA('#'+opt+'options').accordion({
+			heightStyle: "content"
+		});
+		
 		WAA.each(WAA('#'+opt+'backgroundColor,#'+opt+'borderColor,#'+opt+'textColor,#'+opt+'linkColor'),function(i,e){
 			
 			var id=this.id;
@@ -427,7 +439,7 @@
 		var colorPicker={};
 		
 		WAA('.postbox').postbox_toggles();
-		WAA("#normal-sortables").sortable().disableSelection();
+//		WAA("#normal-sortables").sortable().disableSelection();
 		WAA.each(WAA('.required'),function(i,e){
 			if(WAA(e).val().length==0) WAA('label[for="'+e.id+'"]').css('color','red');
 		});
@@ -531,39 +543,61 @@
 		
 		if(WAA('[name="WAA_pictureSize"]:checked').length==0) WAA('#WAA_pictureSizesmall').attr('checked',true);
 	};
-	
+		
+	//
+	// Methoden zum einfügen von Amazon Adds auf Seiten und Artikeln
+	//
 	WAA.insertSetup=function(tab){
-		
-		WAA('input').attr('disabled',true);
+	
+		// Alle Inputs disablen
+		WAA('input').attr('disabled', true);
+		// Input zur Eingabe der ASIN enablen
 		WAA('#asin, .button').attr('disabled',false);
-		
+						
+		// Wenn Tab auf Image
 		if(tab=='image'){
 			
-			WAA('#size').bind('change',function(){
+			WAA('#size').bind('change', function(){
 				this.blur();
 			});
-			WAA('#asin,#size').bind('blur',function(){
-				WAA('#asin').val(WAA('#asin').val().replace(/\s/g,''));
+			
+			// Wenn Feld ASIN oder Size verlassen wurden
+			WAA('#asin ,#size').bind('blur', function(){
 				
-				var asin=WAA('#asin').val();
-				var asins=asin.split(asin.match(/;/)?';':',');
+				// Alle Lerzeichen aus ASIN-String entfernen
+				WAA('#asin').val(WAA('#asin').val().replace(/\s/g, ''));
 				
-				if(asin.length>=10){
+				// ASIN Wert in Variable speichern / Einzellink
+				var asin = WAA('#asin').val();
+				
+				// ASIN Werte in Array Speichern für Random oder Toggle
+				var asins = asin.split(asin.match(/;/)?';':',');
+				
+				// Wenn ASIN String 10 Zeichen enthält
+				if(asin.length >= 10){
 					
-					WAA('input').attr('disabled',false);
+					// Alle Eingabefelder einschalten
+					WAA('input').attr('disabled', false);
+					
+					// Benötigthinweiß (*) ausblenden
 					WAA('#status_asin').hide();
+					
+					// Vorhandenen Adds entfernen
 					WAA('.WAA_image').remove();
+					
+					// Neues Add laden und in der Vorschau anzeigen
 					WAA('#preview').viewPicture({
-						asin:asins[0],
-						position:'page',
-						size:WAA('#size').val(),
-						url:WAA('#webservice').val(),
-						waa_nonce:WAA('#WAA_nonce').val(),
-						target:WAA('#target').val(),
-						insertion:'prepend'
+						asin:       asins[0],
+						position:   'page',
+						size:       WAA('#size').val(),
+						url:        WAA('#webservice').val(),
+						waa_nonce:  WAA('#WAA_nonce').val(),
+						target:     WAA('#target').val(),
+						insertion: 'prepend'
 					});
 					
-					var image=WAA('#preview img:first');
+					// Bild in Variable speichern
+					var image = WAA('#preview img:first');
 					
 					WAA.each(['alt','width','height','class','style'],function(i,e){
 						
@@ -582,6 +616,7 @@
 					});
 					WAA('#preview img:first').bind('click',function(){return false;});
 				}
+				// Wenn ASIN String kleiner 10 oder leer vorschau löschen und Werte zurücksetzen
 				else if(this.id=='asin'){
 					WAA('input').attr('disabled',true);
 					WAA('#asin, .button').attr('disabled',false);
@@ -594,6 +629,7 @@
 				}
 			});
 			
+			// Event Keys einbinden
 			WAA('#asin').bind('keydown',function(e){
 				switch(e.keyCode){
 					case 13:this.blur(); break;
@@ -602,15 +638,20 @@
 					default: break;
 				}
 			});
+			
+			// Feld für Höhe und Breide mit Event versehen
 			WAA('#width, #height').bind('change',function(){
 				WAA('#preview img:first').attr(this.id,this.value);
 			});
+			// Feld für Alt und CSS-Klasse mit Event versehen
 			WAA('#alt, #class').bind('change',function(){
 				WAA('#preview img:first').attr(this.id,this.value);
 			});
+			// Feld für Alt und CSS-Klasse mit Event versehen
 			WAA('#href, #title').bind('change',function(){
 				WAA('#preview img:first').attr(this.id,this.value);
 			});
+			// Feld für Style mit Event versehen
 			WAA('#style').bind('keypress',function(){
 				if(event.keyCode==59) WAA('#preview img:first').attr('style',this.value);
 			});
@@ -646,8 +687,10 @@
 				WAA('#preview span').remove();
 				win.send_to_editor(WAA('#preview').html());
 			});
-			}
-			else if(tab=='enhanced'){WAA('#asin').bind('blur',function(){
+		}
+		else if(tab=='enhanced'){
+			
+			WAA('#asin').bind('blur',function(){
 				
 				WAA('#asin').val(WAA('#asin').val().replace(/\s/g,''));
 				
@@ -668,7 +711,8 @@
 						style:WAA('#style').val()
 					});
 					WAA('#preview iframe').addClass(WAA('#class').val());
-					WAA('#preview iframe').attr('style',WAA('#style').val());
+					WAA('#preview iframe').attr('style', WAA('#style').val());
+					WAA('#preview iframe').attr('name', 'WAA_enhanced');
 					
 					if(asins.length>1){
 						WAA('#preview iframe').attr('title',asins);
@@ -679,56 +723,83 @@
 					WAA('#asin, .button').attr('disabled',false);
 					WAA('#preview iframe').remove();
 					WAA('#status_asin').show();
-					
+				
 					this.form.reset();
 				}
 			});
+			
 			WAA('input[name="align"]').bind('change',function(){
 				
 				var cssAlign;
-				
+		
 				WAA('.WAA_enhanced').removeClass('alignleft alignright aligncenter alignnone');
 				
 				switch(this.value){
-					case 'left':cssAlign = 'alignleft';break;
-					case 'right':cssAlign = 'alignright';break;
-					case 'center':cssAlign='aligncenter';break;
-					default:cssAlign='alignnone';break;
+					case 'left':
+						cssAlign = 'alignleft';
+						break;
+					case 'right':
+						cssAlign = 'alignright';
+						break;
+					case 'center':
+						cssAlign='aligncenter';
+						break;
+					default:
+						cssAlign='alignnone';
+						break;
 				}
-				
+			
 				WAA('.WAA_enhanced').addClass(cssAlign);
 				WAA('#class').val(WAA('.WAA_enhanced').attr('class'));
 			});
+			
 			WAA('#asin').bind('keydown',function(e){
 				
 				switch(e.keyCode){
-					case 13:this.blur();break;
-					case 27:this.value='';this.blur();break;
-					case 32:return false;break;
-					default:break;
+					case 13:
+						this.blur();
+						break;
+					case 27:
+						this.value='';
+						this.blur();
+						break;
+					case 32:
+						return false;
+						break;
+					default:
+						break;
 				}
 			});
+			
 			WAA('#style').bind('keypress',function(){
 				
 				if(event.keyCode==59){
 					WAA('.WAA_enhanced').attr('style',this.value);
 				}
 			});
+			
 			WAA('#style').bind('change',function(){
 				WAA('.WAA_enhanced').attr('style', this.value);
 			});
+			
 			WAA('#class').bind('change',function(){
 				
 				if(this.value.indexOf('WAA_enhanced')<1) this.value='WAA_enhanced '+this.value;
 				
 				WAA('.WAA_enhanced').attr('class',this.value);
 			});
-			WAA('#insert').bind('click',function(){var win=window.dialogArguments||opener||parent||top;WAA('#preview span').remove();
-				win.send_to_editor(WAA('#preview').html());
+			
+			WAA('#insert').bind('click',function(){
+				
+				WAA('#preview span').remove();
+				var enhancedStr = WAA('#preview').html();
+				var win = window.dialogArguments||opener||parent||top;
+				
+				win.send_to_editor(enhancedStr);
 			});
 		}
 		else if(tab=='sidebar'){
-		
+
 			WAA('input').attr('disabled',false);
 			WAA('input[name="type"], #widgetID').bind('change',function(){
 				WAA('#asin').val('');update();
@@ -837,6 +908,7 @@
 			update();
 		}
 	
+		
 		WAA('#cancel').bind('click',function(){
 		
 			var win=window.dialogArguments||opener||parent||top;

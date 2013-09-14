@@ -4,7 +4,7 @@ Author URI: http://www.welzels.de
 Donate link: http://www.welzels.de/blog/development/welamazonadds/
 Tags: Amazon, Link, Partnernet, Associates, Banners, Widget
 Requires at least: 2.7
-Tested up to: 3.0
+Tested up to: 3.6
 Stable tag: 1.1.0
 
 The Plugin Wel!Amazon Adds is an easy way to include Amazon links into your WordPress Blog.
@@ -47,6 +47,12 @@ To activate the Widget on the sidebar goto **Appearance** ans select **Widgets**
 [Click here for Faq and information about Wel!Amazon Adds](http://www.welzels.de/blog/development/welamazonadds/#comments "Wel!Amazon Adds Faq")
 
 == Changelog ==
+
+= 1.3 =
+- Remove the old Amazon Web Service
+- Update Admin Interface
+- Update insert dialog
+- Update widget dialog
 
 = 1.2 =
 - Title will not longer displayed on blank side bars.

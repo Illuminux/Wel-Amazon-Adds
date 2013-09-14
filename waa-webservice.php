@@ -1,4 +1,31 @@
-<?
+<?php
+/*
+ * Wel!AmazonAdds v1.3
+ * Copyright 2012  Knut Welzel  (email : knut@welzels.de)
+ *
+ * waa-webservice.php
+ *
+ * License:       GNU General Public License, v3
+ * License URI:   http://www.gnu.org/licenses/quick-guide-gplv3
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ * 
+ * For details, see htp://www.welzels.de/welzoom2/
+ *
+ */
+
 
 /*
  * Load WordPress Administration Bootstrap
@@ -107,10 +134,11 @@
 
 		// Amazon Server Namen
 			if(is_null($location)){
-				$location = $options['location']['string'];
+				$location = $options['location'];
 			}
-			list($location_name,$location_code,$location_affiliate) = explode(';',$location);
-			if(strlen($location_name)<1)
+			$locations = WAA_location();
+			extract($locations[$location]);
+			if(strlen($name)<1)
 				$output .= '<li>'.__('Amazon Location is not set!','WAA').'</li>';
 				
 		// Partner ID
@@ -150,7 +178,7 @@
 		if(is_null($output)){
 							
 			// Amazon Grafik & Text src
-				$src = 'http://' . $location_affiliate . '?' .
+				$src = 'http://' . $affiliate . '?' .
 				       'lt1=' . $target . '&' .
 				       'bc1=' . substr($borderColor,1) . '&' .
 				        $imageSize . '=1&' .
@@ -158,13 +186,13 @@
 				        'fc1=' . substr($textColor,1) . '&' .
 				        'lc1=' . substr($linkColor,1) . '&' .
 				        't=' . $partnerID . '&' .
-				        'o=' . $location_code . '&' .
+				        'o=' . $code . '&' .
 				        'p=8&' .
 				        ($priceIndicator==''?'':($priceIndicator . '=1&')) .
 				        'l=as1&m=amazon&f=ifr&' .
 				        'asins=' . $asin;
 	 		
-				$output = '<iframe src="'.urldecode($src).'" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>';
+				$output = '<iframe src="'.urldecode($src).'" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" class="WAA_enhanced"></iframe>';
 		}
 		else{
 			$output = '<p><b>Missing parameter:</p><ul>'.$output.'</ul>';
@@ -175,110 +203,105 @@
 	
 	
 	function requestIMG($instance){
-		
-		
-		if(!function_exists('simplexml_load_file')) {
-			
-			$errorStr = "<p><b>The PHP-Function simplexml_load_file is not available.</b></p>\n"
-			          . "<p>This Function is include since PHP 5.1.0 and Libxml 2.6.0.</p>\n"
-			          . "<p>Your curren PHP version is ".phpversion()."!</p>";
-			
-			return $errorStr;
-		}
-		
-		// Die Ausgabe
-			$output = null;
 
+		// die Ausgabe
+			$output = null;
+		
 		// ermitteln der Benutzerdaten und speichern in die entsprechenden 
 		// Variablen
 			extract($instance);
 			$options = WAA_instance();
-//		return 'clt_nonce: ' . $waa_nonce . ' srv_nonce: ' . wp_create_nonce(get_bloginfo());
+			
 		// Berechtigung prüfen
 			if(!wp_verify_nonce($waa_nonce, get_bloginfo())){
 				die('Busted!');
 			}
-			
-			
+
 		// Amazon Server Namen
 			if(is_null($location)){
-				$location = $instance['location'] = $options['location']['string'];
+				$location = $options['location'];
 			}
-			list($location_name,$location_code,$location_affiliate,$location_aws) = explode(';',$location);
-			if(strlen($location_name)<1)
+			$locations = WAA_location();
+			extract($locations[$location]);
+			if(strlen($name)<1)
 				$output .= '<li>'.__('Amazon Location is not set!','WAA').'</li>';
+
 				
 		// Partner ID
 			if(is_null($partnerID))
-				$partnerID = $instance['partnerID'] = $options['partnerID'];
+				$partnerID = $options['partnerID'];
 			if(strlen($partnerID)<1)
-				$output .= '<li>'.__('Amazon Partner ID is not set!','WAA').'</li>';
-				
-		// Access Key 
-			if(is_null($accesKeyID))
-				$accesKeyID = $instance['accesKeyID'] = $options['accesKeyID'];
-			if(strlen($accesKeyID)<1)
-				$output .= '<li>'.__('Amazon Acces Key is not set!','WAA').'</li>';
-		
-		// Secret Acces Key
-			if(is_null($secretAccesKey))
-				$secretAccesKey = $instance['secretAccesKey'] = $options['secretAccesKey'];
-			if(strlen($secretAccesKey)<1)
-				$output .= '<li>'.__('Amazon Secret Acces Key is not set!','WAA').'</li>';
+				$output .= '<li>'.__('Amazon Partner ID is not set!','WAA').'</li>';			
 			
+				
+		// imageSize
+/*			if(is_null($imageSize))
+				$size = $options['size'];	
+*/
+
 			
 		if(is_null($output)){
+						
+			$output = "<!-- " . $size . " -->"; //print_r($instance, true);
 			
-			$xml = requestAWS($instance);
 			
-			$Item = $xml->Items->Item;
-
-			$DetailPageURL = $Item->DetailPageURL;
-
-			$option = explode(',',$option);
-
-			$output = '<a href="'.urldecode($DetailPageURL).'" title="'.$Item->ItemAttributes->Title.' - '.$Item->ItemAttributes->Author.'" target="'.$target.'" class="WAA_image">';
-
 			switch($size){
 				case('swatch'); //SwatchImage
-					$image = $Item->ImageSets->ImageSet->SwatchImage;
+					$height = "18";
+					$format = "_SL110_";
 				break;
 				case('thumbnail'); // ThumbnailImage
-					$image = $Item->ImageSets->ImageSet->ThumbnailImage;
+					$height = "32";
+					$format = "_SL110_";
 				break;
 				case('tiny'); // TinyImage
-					$image = $Item->ImageSets->ImageSet->TinyImage;
+					$height = "75";
+					$format = "_SL110_";
 				break;
 				case('medium'); // MediumImage
-					$image = $Item->ImageSets->ImageSet->MediumImage;
+					$height = "160";
+					$format = "_SL160_";
 				break;
 				case('large'); // LargeImage
-					$image = $Item->ImageSets->ImageSet->LargeImage;
+					$height = "500";
+					$format = "_SL160_";
 				break;
 				default;
-					$image = $Item->ImageSets->ImageSet->SmallImage;
+					$height = "110";
+					$format = "_SL110_";
 				break;
 			}
-
-			$output .= '<img src="'.$image->URL.'" width="'.$image->Width.'" height="'.$image->Height.'" class="WAA" />';
-			$output .= '</a>';
 			
-			if(count($image)==0){
-				
-				$output = '<div class="ui-widget" style="margin:2px 0">' .
-				          '<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">' .
-				          '<span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>' .
-				          '<strong>Wrong ASIN:</strong> ' . $asin .
-				          '</div>' .
-				          '</div>';
-			}
+			$src  = "http://ws.assoc-amazon." . $domain . "/widgets/q?".
+			        "_encoding=UTF8&".
+				    "ASIN=" . $asin . "&".
+				    "Format=" . $format . "&".
+				    "ID=AsinImage&".
+				    "MarketPlace=" . strtoupper($location) . "&".
+				    "ServiceVersion=20070822&".
+				    "WS=1&".
+				    "tag=" . $partnerID;
+				 
+			$href = "http://www.amazon." . $domain . "/gp/product/" . $asin . "/ref=as_li_tf_il?".
+			        "ie=UTF8&".
+					"ie=UTF8&".
+					"camp=1638&".
+					"creative=6742&".
+					"creativeASIN=" . $asin . "&".
+					"linkCode=as2&".
+					"tag=" . $partnerID;
+
+			$output .= '<a href="' . $href . '" target="' . $target . '" class="WAA_image">';
+			$output .= '<img src="' . $src . '" border="0" class="WAA" height="' . $height . '" class="WAA_image">';
+			
+			$output .= "</a>";
+
 		}
 		else{
 			$output = '<p><b>'.__('Missing parameter','WAA').':</p><ul>'.$output.'</ul>';
 		}
 
 		return $output;
-
 	}
 	
 	// ermitteln der POST parameter

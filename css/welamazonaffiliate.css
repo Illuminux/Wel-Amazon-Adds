@@ -1,8 +1,9 @@
 .WAA_enhancedViewSideBar{width:auto;}
 .WAA_imageViewSideBar{position:relative;width:auto;text-align:center;}
-.WAA_loading{background:url(../images/wpspin_light.gif) no-repeat transparent;background-position:center center;}
+.WAA_loading{background:url(../images/wpspin_light.gif) no-repeat transparent;background-position:center center;overflow:hidden;}
+iframe.WAA{background-image:url(../images/preview.png);}
 .aligncenter{clear:both;display:block;margin-left:auto;margin-right:auto;}
 .alignleft{display:inline;float:left;}
 .alignright{display:inline;float:right;}
 /* Do not remove!!! */
-a.WAA_image img {position:relative;visibility:hidden;}
+/*a.WAA_image img {position:relative;visibility:hidden;}*/

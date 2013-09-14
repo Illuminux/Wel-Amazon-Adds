@@ -1,0 +1,600 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Wel!AmazonAdds v1.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2012-09-02 08:59:52+0000\n"
+"Last-Translator: knut <knut@welzels.de>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: \n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: waa-functions.php:263
+#@ WAA
+msgid "Insert Amazon Affiliate"
+msgstr ""
+
+#: waa-functions.php:264
+#@ WAA
+msgid "Insert Amazon Add"
+msgstr ""
+
+#: waa-insert.php:9
+#@ WAA
+msgid "You do not have permission to edit."
+msgstr "Keine Berechtigungen diese Option zu ändern."
+
+#: waa-insert.php:32
+#: waa-webservice.php:120
+#: waa-webservice.php:215
+#: waa-widget.php:204
+#@ WAA
+msgid "Amazon Partner ID is not set!"
+msgstr ""
+
+#: waa-insert.php:35
+#: waa-webservice.php:221
+#: waa-widget.php:207
+#@ WAA
+msgid "Amazon Acces Key is not set!"
+msgstr ""
+
+#: waa-insert.php:38
+#: waa-webservice.php:114
+#: waa-webservice.php:209
+#: waa-widget.php:210
+#@ WAA
+msgid "Amazon Location is not set!"
+msgstr ""
+
+#: waa-insert.php:41
+#: waa-webservice.php:227
+#: waa-widget.php:213
+#@ WAA
+msgid "Amazon Secret Acces Key is not set!"
+msgstr ""
+
+#: waa-insert.php:49
+#@ WAA
+msgid "Uploads"
+msgstr "Uploads"
+
+#: waa-insert.php:49
+#@ WAA
+msgid "WordPress"
+msgstr "WordPress"
+
+#: waa-insert.php:61
+#: waa-insert.php:84
+#: waa-option.php:160
+#@ WAA
+msgid "Image Links"
+msgstr ""
+
+#: waa-insert.php:64
+#: waa-insert.php:199
+#: waa-option.php:85
+#@ WAA
+msgid "Enhanced Links"
+msgstr ""
+
+#: waa-insert.php:67
+#: waa-insert.php:299
+#@ WAA
+msgid "Sidebar Links"
+msgstr ""
+
+#: waa-insert.php:75
+#: waa-webservice.php:277
+#: waa-webservice.php:384
+#: waa-widget.php:413
+#@ WAA
+msgid "Missing parameter"
+msgstr ""
+
+#: waa-insert.php:91
+#: waa-insert.php:206
+#: waa-insert.php:329
+#@ WAA
+msgid "ASIN"
+msgstr ""
+
+#: waa-insert.php:96
+#: waa-insert.php:211
+#@ WAA
+msgid "Load"
+msgstr ""
+
+#: waa-insert.php:97
+#: waa-insert.php:212
+#@ WAA
+msgid "To randomise a single link, type several ASINS seperated by a coma or for toggle by a semicolon."
+msgstr ""
+
+#: waa-insert.php:102
+#@ WAA
+msgid "Image Size"
+msgstr ""
+
+#: waa-insert.php:106
+#: waa-widget.php:383
+#@ WAA
+msgid "Small image"
+msgstr ""
+
+#: waa-insert.php:107
+#: waa-widget.php:384
+#@ WAA
+msgid "Swatch image"
+msgstr ""
+
+#: waa-insert.php:108
+#: waa-widget.php:385
+#@ WAA
+msgid "Thumbnail image"
+msgstr ""
+
+#: waa-insert.php:109
+#: waa-widget.php:386
+#@ WAA
+msgid "Tiny image"
+msgstr ""
+
+#: waa-insert.php:110
+#: waa-widget.php:387
+#@ WAA
+msgid "Medium image"
+msgstr ""
+
+#: waa-insert.php:111
+#: waa-widget.php:388
+#@ WAA
+msgid "Large image"
+msgstr ""
+
+#: waa-insert.php:114
+#@ WAA
+msgid "Width"
+msgstr ""
+
+#: waa-insert.php:116
+#@ WAA
+msgid "Height"
+msgstr ""
+
+#: waa-insert.php:118
+#@ WAA
+msgid "Original Size"
+msgstr ""
+
+#: waa-insert.php:124
+#@ WAA
+msgid "Alternate Text"
+msgstr "Alternativ Text"
+
+#: waa-insert.php:132
+#@ WAA
+msgid "Link URL"
+msgstr ""
+
+#: waa-insert.php:140
+#@ WAA
+msgid "Link Title"
+msgstr "Link Titel "
+
+#: waa-insert.php:148
+#: waa-insert.php:218
+#@ WAA
+#@ default
+msgid "CSS Class"
+msgstr "CSS-Klasse"
+
+#: waa-insert.php:156
+#: waa-insert.php:226
+#@ WAA
+#@ default
+msgid "Style"
+msgstr "Stiel"
+
+#: waa-insert.php:163
+#: waa-insert.php:233
+#@ WAA
+#@ default
+msgid "Alignment"
+msgstr "Ausrichtung"
+
+#: waa-insert.php:166
+#: waa-insert.php:236
+#@ WAA
+#@ default
+msgid "None"
+msgstr "Keine"
+
+#: waa-insert.php:168
+#: waa-insert.php:238
+#@ WAA
+#@ default
+msgid "Left"
+msgstr "Links"
+
+#: waa-insert.php:170
+#: waa-insert.php:240
+#@ WAA
+#@ default
+msgid "Center"
+msgstr "Zentriert"
+
+#: waa-insert.php:172
+#: waa-insert.php:242
+#@ WAA
+#@ default
+msgid "Right"
+msgstr "Rechts"
+
+#: waa-insert.php:306
+#@ WAA
+msgid "Widget ID"
+msgstr ""
+
+#: waa-insert.php:314
+#@ WAA
+msgid "Preview"
+msgstr ""
+
+#: waa-insert.php:319
+#@ WAA
+msgid "Type"
+msgstr ""
+
+#: waa-insert.php:321
+#@ WAA
+msgid "Enhanced Link"
+msgstr ""
+
+#: waa-insert.php:323
+#@ WAA
+msgid "Image Link"
+msgstr ""
+
+#: waa-insert.php:333
+#@ WAA
+msgid "Use line feed (enter) to separate the ASIN links. To randomise a single link, type several ASINS in one line seperated by a coma or for toggle by a semicolon."
+msgstr ""
+
+#: waa-insert.php:338
+#@ WAA
+msgid "CSS-Style"
+msgstr ""
+
+#: waa-insert.php:344
+#@ WAA
+msgid "CSS-Class"
+msgstr ""
+
+#: waa-insert.php:364
+#@ default
+msgid "Save all changes"
+msgstr "Alle Änderungen speichern"
+
+#: waa-insert.php:365
+#@ default
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: waa-option.php:14
+#@ WAA
+msgid "Wel!Amazon Affiliate"
+msgstr ""
+
+#: waa-option.php:24
+#@ WAA
+msgid "General Options"
+msgstr ""
+
+#: waa-option.php:30
+#@ WAA
+msgid "Amazon Location:"
+msgstr ""
+
+#: waa-option.php:33
+#@ WAA
+msgid "Select your location"
+msgstr ""
+
+#: waa-option.php:38
+#@ WAA
+msgid "Amazon does not provide an affiliate program for any country. Go to your local amazon web side and check which country provides an affiliate program for you."
+msgstr ""
+
+#: waa-option.php:45
+#@ WAA
+msgid "Amazon Affiliate Program"
+msgstr ""
+
+#: waa-option.php:48
+#@ WAA
+msgid "Partner-ID:"
+msgstr ""
+
+#: waa-option.php:53
+#@ WAA
+msgid "You will get your Partner-ID for the affiliate program at the Amazon webpage of your country."
+msgstr ""
+
+#: waa-option.php:57
+#@ WAA
+msgid "Amazon Web-Service"
+msgstr ""
+
+#: waa-option.php:60
+#@ WAA
+msgid "Access Key ID:"
+msgstr ""
+
+#: waa-option.php:65
+#@ WAA
+msgid "You will get your Access Key ID at the <a href=\"http://aws.amazon.com\" target=\"_blank\">Amazon Web Service</a> page. After the registration you can generate a Secret Access Key. Copy this key and paste it into the Secret Access Key field."
+msgstr ""
+
+#: waa-option.php:69
+#@ WAA
+msgid "Secret Access Key:"
+msgstr ""
+
+#: waa-option.php:91
+#: waa-widget.php:293
+#@ WAA
+msgid "Price Indicator:"
+msgstr ""
+
+#: waa-option.php:94
+#: waa-widget.php:295
+#@ WAA
+msgid "Show all prices"
+msgstr ""
+
+#: waa-option.php:95
+#: waa-widget.php:296
+#@ WAA
+msgid "Only new prices"
+msgstr ""
+
+#: waa-option.php:96
+#: waa-widget.php:297
+#@ WAA
+msgid "Do not show prices"
+msgstr ""
+
+#: waa-option.php:108
+#: waa-widget.php:260
+#@ WAA
+msgid "Background Color:"
+msgstr ""
+
+#: waa-option.php:110
+#@ default
+msgid "backgroundColor"
+msgstr ""
+
+#: waa-option.php:114
+#: waa-widget.php:268
+#@ WAA
+msgid "Border Color:"
+msgstr ""
+
+#: waa-option.php:116
+#@ default
+msgid "borderColor"
+msgstr ""
+
+#: waa-option.php:120
+#: waa-widget.php:276
+#@ WAA
+msgid "Text Color:"
+msgstr ""
+
+#: waa-option.php:122
+#@ default
+msgid "textColor"
+msgstr ""
+
+#: waa-option.php:126
+#: waa-widget.php:284
+#@ WAA
+msgid "Link Color:"
+msgstr ""
+
+#: waa-option.php:128
+#@ default
+msgid "linkColor"
+msgstr ""
+
+#: waa-option.php:132
+#: waa-option.php:170
+#: waa-widget.php:301
+#@ WAA
+msgid "Target Window:"
+msgstr ""
+
+#: waa-option.php:134
+#: waa-option.php:172
+#@ default
+msgid "target_blankchecked "
+msgstr ""
+
+#: waa-option.php:135
+#: waa-option.php:173
+#: waa-widget.php:303
+#@ WAA
+msgid "Open link in a new window"
+msgstr ""
+
+#: waa-option.php:136
+#: waa-option.php:174
+#@ default
+msgid "target_topchecked "
+msgstr ""
+
+#: waa-option.php:137
+#: waa-option.php:175
+#: waa-widget.php:304
+#@ WAA
+msgid "Open link in the same window"
+msgstr ""
+
+#: waa-option.php:141
+#: waa-widget.php:308
+#: waa-widget.php:381
+#@ WAA
+msgid "Image Size:"
+msgstr ""
+
+#: waa-option.php:143
+#@ default
+msgid "imageSizeIS2checked "
+msgstr ""
+
+#: waa-option.php:144
+#: waa-widget.php:310
+#@ WAA
+msgid "Use large image"
+msgstr ""
+
+#: waa-option.php:145
+#@ default
+msgid "imageSizeIS1checked "
+msgstr ""
+
+#: waa-option.php:146
+#: waa-widget.php:311
+#@ WAA
+msgid "Use small image"
+msgstr ""
+
+#: waa-option.php:180
+#@ WAA
+msgid "Sandbox:"
+msgstr ""
+
+#: waa-option.php:184
+#@ WAA
+msgid "Image size:"
+msgstr ""
+
+#: waa-option.php:191
+#@ WAA
+msgid "image"
+msgstr ""
+
+#: waa-option.php:219
+#@ default
+msgid "Save Changes"
+msgstr "Änderungen speichern"
+
+#: waa-webservice.php:312
+#@ WAA
+msgid "Type is not set!"
+msgstr ""
+
+#: waa-widget.php:9
+#@ WAA
+msgid "wwa_widget"
+msgstr ""
+
+#: waa-widget.php:10
+#@ WAA
+msgid "Embeds Amazon links to Sidebar"
+msgstr ""
+
+#: waa-widget.php:219
+#@ WAA
+msgid "Amazon Affiliate"
+msgstr ""
+
+#: waa-widget.php:246
+#@ WAA
+msgid "Enhanced Links Layout"
+msgstr ""
+
+#: waa-widget.php:253
+#@ WAA
+msgid "Title:"
+msgstr ""
+
+#: waa-widget.php:323
+#@ WAA
+msgid "Default Enhanced Links"
+msgstr ""
+
+#: waa-widget.php:330
+#@ WAA
+msgid "Display Links:"
+msgstr ""
+
+#: waa-widget.php:332
+#: waa-widget.php:367
+#@ WAA
+msgid "On the start page"
+msgstr ""
+
+#: waa-widget.php:333
+#: waa-widget.php:368
+#@ WAA
+msgid "On the side without a link"
+msgstr ""
+
+#: waa-widget.php:334
+#: waa-widget.php:369
+#@ WAA
+msgid "On all sides"
+msgstr ""
+
+#: waa-widget.php:338
+#: waa-widget.php:373
+#@ WAA
+msgid "Defaults (ASIN):"
+msgstr ""
+
+#: waa-widget.php:340
+#: waa-widget.php:375
+#@ WAA
+msgid "Use line feed (enter) to separate the ASIN links."
+msgstr ""
+
+#: waa-widget.php:343
+#: waa-widget.php:392
+#@ WAA
+msgid "CSS-Class:"
+msgstr ""
+
+#: waa-widget.php:347
+#: waa-widget.php:396
+#@ WAA
+msgid "CSS-Style:"
+msgstr ""
+
+#: waa-widget.php:358
+#@ WAA
+msgid "Default Image Links"
+msgstr ""
+
+#: waa-widget.php:365
+#@ WAA
+msgid "Display Images:"
+msgstr ""
+
+#: waa-widget.php:378
+#@ WAA
+msgid "Images in vertical order"
+msgstr ""
+

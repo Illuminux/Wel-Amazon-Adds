@@ -1,4 +1,31 @@
 <?php
+/*
+ * Wel!AmazonAdds v1.3
+ * Copyright 2012  Knut Welzel  (email : knut@welzels.de)
+ *
+ * waa-functions.php
+ *
+ * License:       GNU General Public License, v3
+ * License URI:   http://www.gnu.org/licenses/quick-guide-gplv3
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ * 
+ * For details, see htp://www.welzels.de/welzoom2/
+ *
+ */
+
 
 /*
  *	Variablen und Daten
@@ -38,7 +65,8 @@
 // Länder spezifische Amazon Daten
 
 	function WAA_location(){
-
+		
+		/*		
 		return array(
 			'ca' => array(
 				'name'       => 'Canada',
@@ -82,6 +110,52 @@
 				'affiliate'  => 'rcm-it.amazon.it/e/cm',
 				'webservice' => 'ecs.amazonaws.it'
 			)
+		);		
+		*/
+		
+		return array(
+			'ca' => array(
+				'name'       => 'Canada',
+				'code'       => 15,
+				'affiliate'  => 'rcm-ca.amazon.ca/e/cm',
+				'domain'     => 'ca'
+			),
+			'fr' => array(
+				'name'       => 'France',
+				'code'       => 8,
+				'affiliate'  => 'rcm-fr.amazon.fr/e/cm',
+				'domain'     => 'fr'
+			),
+			'de' => array(
+				'name'       => 'Germany',
+				'code'       => 3, 
+				'affiliate'  => 'rcm-de.amazon.de/e/cm',
+				'domain'     => 'de'
+			),
+			'jp' => array(
+				'name'       => 'Japan',
+				'code'       => 9,
+				'affiliate'  => 'rcm-jp.amazon.co.jp/e/cm',
+				'domain'     => 'jp'
+			),
+			'us' => array(
+				'name'       => 'United States',
+				'code'       => 1,
+				'affiliate'  => 'rcm.amazon.com/e/cm',
+				'domain'     => 'com'
+			),
+			'uk' => array(
+				'name'       => 'United Kingdom',
+				'code'       => 2,
+				'affiliate'  => 'rcm-uk.amazon.co.uk/e/cm',
+				'domain'     => 'co.uk'
+			),
+			'it' => array(
+				'name'       => 'Italy',
+				'code'       => 29,
+				'affiliate'  => 'rcm-it.amazon.it/e/cm',
+				'domain'     => 'it'
+			)
 		);
 	}
 	
@@ -97,15 +171,9 @@
 
 		$instance = array(
 			'partnerID'       => get_option('WAA_partnerID',false),
-			'accesKeyID'      => get_option('WAA_accesKeyID',''),
-			'secretAccesKey'  => get_option('WAA_secretAccesKey',''),
-			'location'        => array(
-				'name'        => $locationName,
-				'code'        => $locationCode, 
-				'affiliate'   => $locationAffiliate, 
-				'webservice'  => $locationWebservice,
-				'string'      => $locationStr
-			),
+/*			'accesKeyID'      => get_option('WAA_accesKeyID',''),
+			'secretAccesKey'  => get_option('WAA_secretAccesKey',''), */
+			'location'        => get_option('WAA_location','de'),
 			'page'            => array(
 				'priceIndicator'  => get_option('WAA_priceIndicatorPage',''),
 				'backgroundColor' => get_option('WAA_backgroundColorPage','#FFFFFF'),
@@ -133,8 +201,24 @@
 			$instance['partnerID'] = get_option('WELAmazonAdds_partnerID','');
 		}
 		
-		return $instance;
+		// Notwendig für Update da location String sich geändert hat!!!
+		if(strlen($instance['location']) > 3){
+				
+//			$instance['location'] = 'xy';
 
+			list($location_name,$location_code,$location_affiliate) = explode(';',$instance['location']);
+			
+			foreach(WAA_location() as $key => $value){
+				
+				if(strcmp($location_name, $value['name']) == 0) {
+					
+					$instance['location'] = $key;
+					break;
+				}
+			}
+		}
+		
+		return $instance;
 	}
 	
 	
@@ -144,8 +228,8 @@
 	function WAA_pageOptions(){
 		return array(
 			'WAA_partnerID',
-			'WAA_accesKeyID',
-			'WAA_secretAccesKey',
+/*			'WAA_accesKeyID',
+			'WAA_secretAccesKey', */
 			'WAA_location',
 			'WAA_priceIndicatorPage',
 			'WAA_backgroundColorPage',
@@ -263,7 +347,7 @@
 		$output  = '<a href="'.WAA_path('url').'/waa-insert.php?post_id='.$post_id.'&tab=image&TB_iframe=true" class="thickbox" title="' . __('Insert Amazon Affiliate','WAA') . '">' . 
 	               '<img src="' . WAA_path('imageurl') . '/welAmazonAddsButton.png" alt="' . __('Insert Amazon Add','WAA') . '">' . 
 	               '</a>';
-		
+				   
 		echo $output;
 	}
 	
@@ -287,7 +371,7 @@
 			)
 		);
 		
-		$output = '<img src="'.WAA_path('url').'/images/empty.png?'.$query.'" src="" width="0" height="0" id="WAA_interim" />';
+		$output = '<img src="'.WAA_path('url').'/images/empty.png?'.$query.'" src="" width="0" height="0" id="WAA_interim" style="display: none;"/>';
 		
 		echo $output;
 	}
@@ -301,9 +385,9 @@
 	
 	
 	function WAAtinymceInit($init_array){
-		
+	
 		$init_array["extended_valid_elements"] = "iframe[id|class|title|style|align|frameborder|height|longdesc|marginheight|marginwidth|name|scrolling|src|width]";
-		
+
 		return $init_array;
 	}
 	
@@ -314,11 +398,20 @@
 
 		$output = '';
 
+		/*
 		foreach(WAA_location() as $entry){
 			$value = join(';',$entry);
 			$selected = ($location['string']==join(';',$entry)?' selected':'');
 			$output .= '<option value="'.$value.'" '.$selected.'>'.$entry['name'].'</option>';
 		}
+		*/
+		
+		foreach(WAA_location() as $key => $value){
+			
+			$selected = $location==$key?" selected":"";
+			$output .= "<option value=\"" . $key . "\"" . $selected . ">" . $value['name'] . "</option>\n";
+		}
+		
 		echo $output;
 	}
 
