@@ -1,0 +1,15 @@
+input.WAA_colorpicker{width:60px;text-align:center;font-family:Monaco,sans-serif;}
+div.WAA_colorpicker{border:1px solid #dfdfdf;background-color:#f1f1f1;position:absolute;z-index:1;border-radius:4px;display:none;padding:4px;-webkit-box-shadow:#808080 0px 4px 30px;-moz-box-shadow:#808080 0px 4px 30px;box-shadow:#808080 0px 4px 30px;}
+.WAA_imagePreview{text-align:center;padding:5px;}
+.WAA_loading{background:url(jQuery/images/ui-anim_basic_16x16.gif) no-repeat transparent;background-position:center center;}
+.WAA_loading img, .WAA_loading iframe{display:none;}
+#WAA_preView, .WAA_preView {width:120px;height:240px;}
+#WAA_preView iframe{display:none;}
+.WAA_enhancedPreview{overflow:auto;width:100%;height:360px;margin:0 auto;text-align:center;padding:5px;}
+.WAA_enhancedPreview iframe{margin:5px;}
+.WAA_hiden{display:none;}
+.show-align{height:200px;width:470px;background-color:#f1f1f1;cursor:default;-moz-user-select:none;user-select:none;overflow:hidden;}
+#img_demo_txt{font-size:9px;line-height:13px;font-family:Monaco,"Courier New",Courier,monospace;color:#888;}
+.aligncenter{display:block !important;margin-left:auto !important;margin-right:auto !important;}
+#WAA_dimension{display:none;}
+#WAA_dimension label{color:#464646;font-size:12px;font-weight:bold;}
